@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f2">
+    <title>Flora — Pengenal Bunga</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #20352b;
+            --muted: #718078;
+            --green: #315c45;
+            --green-dark: #254a37;
+            --lime: #dce9b9;
+            --paper: #fffefa;
+            --line: #e5e9df;
+            --danger: #a33d35;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-width: 320px;
+            color: var(--ink);
+            background:
+                radial-gradient(ellipse at 9% 10%, #e7efd9 0, transparent 30rem),
+                #f5f7f2;
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            letter-spacing: -.04em;
+            font-size: 1.2rem;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 39px;
+            height: 39px;
+            border-radius: 14px;
+            color: white;
+            background: var(--green);
+            font-size: 1.15rem;
+        }
+
+        .top-note {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: clamp(32px, 7vw, 88px);
+            padding: 52px 0 72px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green);
+            font-size: .77rem;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 21px;
+            height: 2px;
+            border-radius: 2px;
+            background: #86a56e;
+        }
+
+        h1 {
+            max-width: 570px;
+            margin: 18px 0;
+            font-size: clamp(2.65rem, 5.3vw, 4.6rem);
+            line-height: .99;
+            letter-spacing: -.065em;
+        }
+
+        h1 span {
+            color: #718d59;
+        }
+
+        .intro {
+            max-width: 480px;
+            margin: 0;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.75;
+        }
+
+        .flower-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 25px;
+        }
+
+        .flower-chip {
+            padding: 8px 12px;
+            border: 1px solid #dfe6d6;
+            border-radius: 999px;
+            color: #506653;
+            background: #fbfcf8;
+            font-size: .83rem;
+        }
+
+        .card {
+            padding: clamp(22px, 4vw, 38px);
+            border: 1px solid #edf0e9;
+            border-radius: 25px;
+            background: var(--paper);
+            box-shadow: 0 24px 60px #31442b12;
+        }
+
+        .card-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 23px;
+        }
+
+        .card-heading h2 {
+            margin: 0 0 6px;
+            font-size: 1.23rem;
+            letter-spacing: -.03em;
+        }
+
+        .card-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .status {
+            flex: 0 0 auto;
+            padding: 7px 10px;
+            border-radius: 999px;
+            color: #356844;
+            background: #eaf3e8;
+            font-size: .74rem;
+            font-weight: 750;
+        }
+
+        .status.offline {
+            color: #8b5c21;
+            background: #fbf0d9;
+        }
+
+        .dropzone {
+            position: relative;
+            display: grid;
+            min-height: 250px;
+            place-items: center;
+            overflow: hidden;
+            border: 1.5px dashed #c8d2c2;
+            border-radius: 18px;
+            background: #f8faf5;
+            transition: border-color .2s, background .2s, transform .2s;
+        }
+
+        .dropzone.dragover {
+            transform: scale(1.01);
+            border-color: var(--green);
+            background: #edf4e8;
+        }
+
+        .dropzone.has-image {
+            border-style: solid;
+        }
+
+        .dropzone input {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .placeholder {
+            padding: 26px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        .upload-icon {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            margin: 0 auto 15px;
+            border-radius: 18px;
+            color: var(--green);
+            background: #e9f0df;
+            font-size: 1.45rem;
+        }
+
+        .placeholder strong {
+            display: block;
+            margin-bottom: 7px;
+            font-size: .98rem;
+        }
+
+        .placeholder p {
+            margin: 0;
+            color: var(--muted);
+            font-size: .83rem;
+            line-height: 1.55;
+        }
+
+        .browse {
+            color: var(--green);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 750;
+        }
+
+        .preview {
+            display: none;
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            background: #f1f3ee;
+        }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 12px;
+            padding: 11px 13px;
+            border-radius: 12px;
+            background: #f4f6f1;
+            font-size: .84rem;
+        }
+
+        .file-name {
+            overflow: hidden;
+            color: #536257;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .clear-button {
+            flex: 0 0 auto;
+            padding: 4px 7px;
+            border: 0;
+            color: var(--muted);
+            background: transparent;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .clear-button:hover {
+            color: var(--danger);
+        }
+
+        .help {
+            margin: 12px 0 19px;
+            color: var(--muted);
+            font-size: .78rem;
+            line-height: 1.5;
+        }
+
+        .error {
+            margin: 0 0 17px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #853b34;
+            background: #fff0ed;
+            font-size: .87rem;
+            line-height: 1.5;
+        }
+
+        .submit {
+            display: flex;
+            width: 100%;
+            min-height: 51px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 0;
+            border-radius: 13px;
+            color: #fff;
+            background: var(--green);
+            font: inherit;
+            font-weight: 750;
+            cursor: pointer;
+            transition: background .2s, transform .2s, opacity .2s;
+        }
+
+        .submit:hover:not(:disabled) {
+            transform: translateY(-1px);
+            background: var(--green-dark);
+        }
+
+        .submit:disabled {
+            opacity: .48;
+            cursor: not-allowed;
+        }
+
+        .spinner {
+            display: none;
+            width: 17px;
+            height: 17px;
+            border: 2px solid #ffffff70;
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin .7s linear infinite;
+        }
+
+        .submit.loading .spinner {
+            display: inline-block;
+        }
+
+        .submit.loading .submit-label {
+            font-size: 0;
+        }
+
+        .submit.loading .submit-label::after {
+            content: "Sedang mengenali...";
+            font-size: .95rem;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .result {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 17px;
+            border: 1px solid #dce8d4;
+            border-radius: 15px;
+            background: #f1f6eb;
+        }
+
+        .result-icon {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: #e0ebd3;
+            font-size: 1.2rem;
+        }
+
+        .result-label {
+            display: block;
+            margin-bottom: 3px;
+            color: var(--muted);
+            font-size: .76rem;
+        }
+
+        .result strong {
+            font-size: 1.07rem;
+            text-transform: capitalize;
+        }
+
+        .model-note {
+            margin-top: 13px;
+            color: #8b6a37;
+            font-size: .79rem;
+            line-height: 1.5;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 19px 0 27px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: .78rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        .footer-mark {
+            color: #84917f;
+            letter-spacing: .04em;
+        }
+
+        :focus-visible {
+            outline: 3px solid #a2bc82;
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                width: min(100% - 32px, 520px);
+            }
+
+            .top-note {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 38px 0 45px;
+            }
+
+            h1 {
+                max-width: 500px;
+                font-size: clamp(2.8rem, 12vw, 4rem);
+            }
+
+            .intro {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .dropzone,
+            .preview {
+                min-height: 215px;
+                height: 215px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+        <header class="topbar">
+            <div class="brand"><span class="brand-mark" aria-hidden="true">✿</span><span>flora<span
+                        style="color:#91a879">.</span></span></div>
+            <div class="top-note">Eksplorasi bunga, dimulai dari satu foto</div>
+        </header>
+
+        <main class="hero">
+            <section aria-labelledby="main-title">
+                <div class="eyebrow">Pengenal bunga berbasis AI berbasis CNN</div>
+                <h1 id="main-title">Kenali bunga di <span>sekitarmu.</span></h1>
+                <p class="intro">Unggah foto dan biarkan model mengenali jenis bunga dalam beberapa saat. Cukup pilih
+                    gambar atau seret ke area unggah.</p>
+                <div class="flower-list" aria-label="Jenis bunga yang dikenali">
+                    <span class="flower-chip">Daisy</span>
+                    <span class="flower-chip">Dandelion</span>
+                    <span class="flower-chip">Rose</span>
+                    <span class="flower-chip">Sunflower</span>
+                    <span class="flower-chip">Tulip</span>
+                </div>
+            </section>
+
+            <section class="card" aria-labelledby="upload-title">
+                <div class="card-heading">
+                    <div>
+                        <h2 id="upload-title">Coba pengenalan</h2>
+                        <p>Tambahkan foto bunga untuk memulai.</p>
+                    </div>
+                    <span class="status{% if not model_ready %} offline{% endif %}">
+                        {% if model_ready %}● Siap{% else %}● Model offline{% endif %}
+                    </span>
+                </div>
+
+                {% if error_message %}
+                <p class="error" role="alert">{{ error_message }}</p>
+                {% endif %}
+
+                <form id="upload-form" method="post" enctype="multipart/form-data">
+                    <label class="dropzone{% if uploaded_image %} has-image{% endif %}" id="dropzone" for="image-input">
+                        <input id="image-input" type="file" name="image" accept="image/jpeg,image/png,image/webp"
+                            aria-label="Pilih gambar bunga">
+                        <div class="placeholder" id="placeholder" {% if uploaded_image %} style="display:none" {% endif
+                            %}>
+                            <span class="upload-icon" aria-hidden="true">↥</span>
+                            <strong>Seret foto ke sini</strong>
+                            <p>atau <span class="browse">telusuri file</span> di perangkatmu</p>
+                            <p style="margin-top:8px">JPG, PNG, atau WEBP · Maks. 10 MB</p>
+                        </div>
+                        <img class="preview" id="image-preview" alt="Pratinjau gambar yang dipilih" {% if uploaded_image
+                            %}src="{{ url_for('send_uploaded_image', filename=uploaded_image) }}" style="display:block"
+                            {% endif %}>
+                    </label>
+
+                    <div class="file-info" id="file-info" {% if uploaded_image %} style="display:flex" {% endif %}>
+                        <span class="file-name" id="file-name">{% if uploaded_image %}{{ uploaded_image }}{% endif
+                            %}</span>
+                        <button class="clear-button" id="clear-button" type="button"
+                            aria-label="Hapus gambar">Hapus</button>
+                    </div>
+                    <p class="help">Gunakan foto bunga yang jelas dengan bunga sebagai objek utama.</p>
+                    <button class="submit" id="submit-button" type="submit" {% if not model_ready %}disabled{% endif %}>
+                        <span class="spinner" aria-hidden="true"></span>
+                        <span class="submit-label">✦ &nbsp; Kenali bunga</span>
+                    </button>
+                </form>
+
+                {% if not model_ready %}
+                <p class="model-note" role="status">Model prediksi belum berhasil dimuat. Pratinjau gambar tetap
+                    tersedia, tetapi prediksi dinonaktifkan sampai model siap.</p>
+                {% endif %}
+
+                {% if prediction %}
+                <div class="result" role="status" aria-live="polite">
+                    <span class="result-icon" aria-hidden="true">✿</span>
+                    <div><span class="result-label">Hasil pengenalan</span><strong>{{ prediction }}</strong></div>
+                </div>
+                {% endif %}
+            </section>
+        </main>
+
+        <footer>
+            <p>Flora · Pengenal jenis bunga</p>
+            <span class="footer-mark">Dibuat untuk belajar machine learning</span>
+        </footer>
+    </div>
+
+    <script>
+        (() => {
+            const input = document.getElementById("image-input");
+            const dropzone = document.getElementById("dropzone");
+            const preview = document.getElementById("image-preview");
+            const placeholder = document.getElementById("placeholder");
+            const fileInfo = document.getElementById("file-info");
+            const fileName = document.getElementById("file-name");
+            const clearButton = document.getElementById("clear-button");
+            const submitButton = document.getElementById("submit-button");
+            const form = document.getElementById("upload-form");
+            const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+            let previewUrl = null;
+
+            function showFile(file) {
+                if (!file) return;
+                if (!allowedTypes.includes(file.type)) {
+                    input.value = "";
+                    window.alert("Pilih gambar berformat JPG, PNG, atau WEBP.");
+                    return;
+                }
+                if (file.size > 10 * 1024 * 1024) {
+                    input.value = "";
+                    window.alert("Ukuran gambar melebihi batas 10 MB.");
+                    return;
+                }
+                if (previewUrl) URL.revokeObjectURL(previewUrl);
+                previewUrl = URL.createObjectURL(file);
+                preview.src = previewUrl;
+                preview.style.display = "block";
+                placeholder.style.display = "none";
+                fileInfo.style.display = "flex";
+                fileName.textContent = file.name;
+                dropzone.classList.add("has-image");
+                if (submitButton) submitButton.disabled = {{ "false" if model_ready else "true" }};
+            }
+
+            input.addEventListener("change", () => showFile(input.files[0]));
+
+            clearButton.addEventListener("click", () => {
+                input.value = "";
+                if (previewUrl) URL.revokeObjectURL(previewUrl);
+                previewUrl = null;
+                preview.removeAttribute("src");
+                preview.style.display = "none";
+                placeholder.style.display = "block";
+                fileInfo.style.display = "none";
+                dropzone.classList.remove("has-image");
+                if (submitButton) submitButton.disabled = {{ "false" if model_ready else "true" }};
+            });
+
+            ["dragenter", "dragover"].forEach((eventName) => {
+                dropzone.addEventListener(eventName, (event) => {
+                    event.preventDefault();
+                    dropzone.classList.add("dragover");
+                });
+            });
+
+            ["dragleave", "drop"].forEach((eventName) => {
+                dropzone.addEventListener(eventName, (event) => {
+                    event.preventDefault();
+                    dropzone.classList.remove("dragover");
+                });
+            });
+
+            dropzone.addEventListener("drop", (event) => {
+                const file = event.dataTransfer.files[0];
+                if (!file) return;
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                input.files = transfer.files;
+                showFile(file);
+            });
+
+            form.addEventListener("submit", () => {
+                if (!input.files.length) return;
+                submitButton.disabled = true;
+                submitButton.classList.add("loading");
+            });
+        })();
+    </script>
+</body>
+
+</html>
