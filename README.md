@@ -8,7 +8,8 @@
 ![Status](https://img.shields.io/badge/status-selesai-brightgreen)
 
 Proyek *machine learning* untuk mengklasifikasikan foto bunga ke dalam lima kelas: **daisy**, **dandelion**, **rose**, **sunflower**, dan **tulip**. Proyek mencakup notebook pelatihan dan evaluasi dua arsitektur CNN, model hasil pelatihan, serta aplikasi web Flask untuk mencoba prediksi secara interaktif.
-Publikasi ilmiah: https://scholar.google.com/citations?view_op=view_citation&hl=id&user=vrmh4RoAAAAJ&citation_for_view=vrmh4RoAAAAJ:-_dYPAW6P2MC
+
+![Publikasi ilmiah](https://scholar.google.com/citations?view_op=view_citation&hl=id&user=vrmh4RoAAAAJ&citation_for_view=vrmh4RoAAAAJ:-_dYPAW6P2MC)
 
 ---
 
