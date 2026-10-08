@@ -208,3 +208,12 @@ Saat notebook dijalankan pertama kali di environment baru, bobot pralatih ImageN
 - Setiap file yang diunggah diberi nama unik berbasis UUID untuk menghindari tabrakan nama.
 - File unggahan disimpan di `static/uploads/`. Bersihkan gambar lama secara manual bila diperlukan.
 - `app.py` menggunakan server bawaan Flask (`debug=True`) untuk pengembangan. Untuk *deployment* produksi, gunakan server WSGI seperti **Gunicorn** (sudah tercantum di `requirements.txt`) sesuai konfigurasi platform hosting.
+
+---
+
+## Lisensi
+
+Proyek ini menggunakan lisensi **Apache License 2.0**. Lihat file [LICENSE](LICENSE) untuk ketentuan lengkap.
+
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+
