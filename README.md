@@ -46,7 +46,7 @@ Publikasi Ilmiah
 | `model_train.ipynb` | Notebook pelatihan — eksplorasi dataset, pelatihan dan evaluasi CNN sederhana serta VGG16, penyimpanan model. |
 | `model_cnn_bunga.h5` | Model CNN sederhana (~40 MB) yang digunakan oleh aplikasi web. |
 | `model_vgg_bunga.h5` | Model VGG16 hasil *transfer learning* (~80 MB) untuk perbandingan; **tidak** digunakan oleh `app.py`. |
-| `data_bunga.zip` | Dataset *Flowers Recognition* — 4.317 gambar dalam lima folder kelas di bawah `flowers/`. |
+| `data_bunga.zip` | Dataset *Flowers Recognition* — 4.317 gambar dalam lima folder kelas di bawah `flowers/`, bersumber dari [Kaggle](https://www.kaggle.com/datasets/alxmamaev/flowers-recognition). |
 | `requirements.txt` | Dependensi aplikasi Flask: `flask`, `tensorflow-cpu`, `gunicorn`, `pillow`, `numpy`. |
 | `templates/index.html` | Antarmuka web *Flora* (template Jinja2). |
 | `static/uploads/` | Folder penyimpanan gambar contoh dan gambar yang diunggah saat aplikasi berjalan. |
